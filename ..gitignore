@@ -1,0 +1,12 @@
+# Ambiente Virtual (Pesado, não deve ir)
+venv/
+
+# Banco de Dados (Contém seus dados locais, não deve ir)
+db.sqlite3
+
+# Arquivos compilados do Python (Lixo automático)
+__pycache__/
+*.pyc
+
+# Arquivos de sistema (Mac/Windows)
+.DS_Store
