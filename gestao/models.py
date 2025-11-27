@@ -10,5 +10,7 @@ class Produto(models.Model):
 
     validade = models.DateField()
 
+    quantidade = models.IntegerField(default=0)
+
     def __str__(self):
         return self.nome
