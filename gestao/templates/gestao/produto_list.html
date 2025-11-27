@@ -32,14 +32,24 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Estoque</th><th>Validade</th>
-                        <th class="text-end">Ações</th> </tr>
+                        <th>Categoria</th> <th>Preço</th>
+                        <th>Estoque</th>
+                        <th>Validade</th>
+                        <th class="text-end">Ações</th> 
+                    </tr>
                 </thead>
                 <tbody>
                     {% for produto in produtos %}
                     <tr>
                         <td class="fw-bold">{{ produto.nome }}</td>
+                       <td>
+                            {% if produto.categoria %}
+                                <span class="badge bg-secondary">{{ produto.categoria.nome }}</span>
+                            {% else %}
+                                <span class="text-muted small">Sem categoria</span>
+                            {% endif %}
+                        </td> 
+
                         <td class="text-success">R$ {{ produto.preco }}</td>
                         
                         <td>
