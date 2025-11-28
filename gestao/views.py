@@ -14,7 +14,7 @@ def produto_list(request):
 
 def produto_novo(request):
     if request.method == "POST":
-        form = ProdutoForm(request.POST)
+        form = ProdutoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return render(request, 'gestao/sucesso.html')
@@ -28,7 +28,7 @@ def produto_edit(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id)
     
     if request.method == "POST":
-     form = ProdutoForm(request.POST, instance=produto)
+     form = ProdutoForm(request.POST, request.FILES, instance=produto)
      if form.is_valid():
          form.save()
          return redirect('produto_list')

@@ -31,6 +31,7 @@
             <table class="table table-hover table-striped mb-0 align-middle">
                 <thead class="table-dark">
                     <tr>
+                        <th>Foto</th>
                         <th>Nome</th>
                         <th>Categoria</th> <th>Preço</th>
                         <th>Estoque</th>
@@ -41,6 +42,13 @@
                 <tbody>
                     {% for produto in produtos %}
                     <tr>
+                         <td>
+                            {% if produto.foto %}
+                                <img src="{{ produto.foto.url }}" alt="{{ produto.nome }}" width="50" height="50" class="rounded-circle">
+                            {% else %}
+                                <i class="bi bi-image text-muted fs-4"></i>
+                            {% endif %}
+                        </td>
                         <td class="fw-bold">{{ produto.nome }}</td>
                        <td>
                             {% if produto.categoria %}

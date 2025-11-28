@@ -14,6 +14,8 @@ class Produto(models.Model):
     validade = models.DateField()
     quantidade = models.IntegerField(default=0)
 
+    foto = models.ImageField(upload_to='produtos/', blank=True, null=True)
+
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
