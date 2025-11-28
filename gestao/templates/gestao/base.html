@@ -14,16 +14,33 @@
             <a class="navbar-brand fw-bold" href="/">
                 <i class="bi bi-box-seam-fill text-warning"></i> Loja de Produtos
             </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Listar Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-warning btn-sm ms-2" href="{% url 'produto_novo' %}">
-                            <i class="bi bi-plus-lg"></i> Novo Produto
-                        </a>
-                    </li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    
+                    {% if user.is_authenticated %}
+                        <li class="nav-item me-3 text-white">
+                            <i class="bi bi-person-circle"></i> Olá, {{ user.username }}
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-warning btn-sm" href="{% url 'produto_novo' %}">
+                                <i class="bi bi-plus-lg"></i> Novo Produto
+                            </a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-light btn-sm">Sair</button>
+                            </form>
+                        </li>
+                    
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'login' %}">
+                                <i class="bi bi-box-arrow-in-right"></i> Fazer Login
+                            </a>
+                        </li>
+                    {% endif %}
+                    
                 </ul>
             </div>
         </div>

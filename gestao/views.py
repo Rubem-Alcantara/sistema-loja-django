@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ProdutoForm
+from django.contrib.auth.decorators import login_required
+from .forms import ProdutoForm, UsuarioForm
 from .models import Produto
 
 def produto_list(request):
@@ -12,6 +13,7 @@ def produto_list(request):
 
     return render(request, 'gestao/produto_list.html', {'produtos': produtos})
 
+@login_required
 def produto_novo(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST, request.FILES)
@@ -24,6 +26,7 @@ def produto_novo(request):
 
     return render(request, 'gestao/produto_novo.html', {'form': form})
 
+@login_required
 def produto_edit(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id)
     
@@ -38,12 +41,23 @@ def produto_edit(request, produto_id):
 
     return render(request, 'gestao/produto_novo.html', {'form': form})
 
+@login_required
 def produto_delete(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id)
     produto.delete()
     return redirect('produto_list')
 
+def register(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    
+    else:
+        form = UsuarioForm()
 
+    return render(request, 'registration/register.html', {'form': form})
 
 
 

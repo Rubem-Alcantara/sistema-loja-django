@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django import forms
 from .models import Produto
 
@@ -15,3 +17,8 @@ class ProdutoForm(forms.ModelForm):
             'foto': forms.FileInput(attrs={'class': 'form-control'}),
 
         }
+
+class UsuarioForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
