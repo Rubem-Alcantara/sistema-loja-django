@@ -31,7 +31,7 @@
                         <th>Categoria</th> <th>Preço</th>
                         <th>Estoque</th>
                         <th>Validade</th>
-                        <th class="text-end">Ações</th> 
+                        <th class="text-center">Ações</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -67,14 +67,24 @@
 
                         <td>{{ produto.validade|date:"d/m/Y" }}</td>
                         
-                        <td class="text-end">
-                            <a href="{% url 'produto_edit' produto.id %}" class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                                <i class="bi bi-pencil"></i>
-                            </a>
+                        <td class="text-center">
+                            {% if perms.gestao.change_produto %}
+                                <a href="{% url 'produto_edit' produto.id %}" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if perms.gestao.delete_produto %}
+                                <a href="{% url 'produto_delete' produto.id %}" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Tem certeza?');">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            {% endif %}
                             
-                            <a href="{% url 'produto_delete' produto.id %}" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja apagar {{ produto.nome }}?');">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            {% if not perms.gestao.change_produto and not perms.gestao.delete_produto %}
+                                <span class="badge rounded-pill bg-light text-secondary border border-secondary-subtle p-2">
+                                    <i class="bi bi-lock-fill"></i> Leitura
+                                </span>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
